@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "_AdministratorLayout";
+    @model Employee
+}
+
+<h2>Är du säker på att du vill ta bort användaren @Model.EmployeeId ?</h2>
+
+<form method="post" asp-controller="Administrator" asp-action="RemoveUser" asp-route-id="@Model.EmployeeId">
+    <input class="button" type="submit" value="Ja" />
+</form>
+<form method="post" asp-controller="Administrator" asp-action="StartAdministrator">
+    <input class="button" type="submit" value="Nej" />
+</form>

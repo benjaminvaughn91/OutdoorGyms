@@ -1,0 +1,37 @@
+﻿@model ICrimeRepository
+
+<!--Nedan ser man en lista på ärenden-->
+<table>
+    <tr>
+        <th>Ärende anmält</th>
+        <th>Ärendenummer</th>
+        <th>Miljöbrott</th>
+        <th>Status</th>
+        <th>Avdelning</th>
+        <th>Handläggare</th>
+    </tr>
+
+    @{string action = "Crime" + @ViewBag.UserRole;}
+
+    @{
+        if (@ViewBag.HasErrands) 
+        { 
+            @foreach (Errand errand in ViewBag.ErrandList)
+            {
+                <tr>
+                    <td>@errand.DateOfObservation</td>
+                    <td><a asp-controller=@ViewBag.UserRole asp-action=@action asp-route-id="@errand.ErrandId">@errand.RefNumber</a></td>
+                    <td>@errand.TypeOfCrime</td>
+                    <td>@Model.GetErrandStatus(errand)</td>
+                    <td>@Model.GetErrandDepartment(errand)</td>
+                    <td>@Model.GetErrandEmployee(errand)</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <p>   Din filtrering/sökning gav inga resultat.</p> 
+        }
+    }
+
+</table>

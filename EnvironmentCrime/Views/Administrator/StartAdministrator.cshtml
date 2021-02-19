@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "_AdministratorLayout";
+    @model ICrimeRepository
+}
+
+<h2>Användare</h2>
+<p class="info">Du är inloggad som administratör</p>
+
+<table id="managerForm">
+    <tr>
+        <td class="label">Välj roll:</td>
+        <td class="label">Välj avdelning:</td>
+        <td>&nbsp;</td>
+        <td class="label">ID-nummer:</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <form method="post" asp-controller="Administrator" asp-action="FilterEmployees">
+            <td>
+                <select name="roletitle">
+                    <option selected="selected" value="all">Välj alla</option>
+                    <option value="Administrator">Administrator</option>
+                    <option value="Coordinator">Coordinator</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Investigator">Investigator</option>
+                </select>
+            </td>
+            <td>
+                <select name="departmentid">
+                    <option selected="selected" value="all">Välj alla</option>
+                    @{
+                        foreach (Department department in Model.Departments)
+                        {
+                            <option value=@department.DepartmentId>@department.DepartmentName</option>
+                        }}
+                </select>
+            </td>
+            <td><input class="button" type="submit" value="Hämta lista" /></td>
+        </form>
+        <form method="post" asp-controller="Administrator" asp-action="SearchEmployees">
+            <td><input name="employeeid" /></td>
+            <td><input class="button" type="submit" value="Sök" /></td>
+        </form>
+    </tr>
+
+</table>
+
+<!--Nedan ser man en lista på anställda-->
+<table>
+    <tr>
+        <th>Id-nummer</th>
+        <th>Namn</th>
+        <th>Roll</th>
+        <th>Avdelning</th>
+    </tr>
+
+    @{
+        if (@ViewBag.HasEmployees)
+        {
+            @foreach (Employee employee in ViewBag.EmployeeList)
+            {
+                <tr>
+                    <td><a asp-controller="Administrator" asp-action="EditUser" asp-route-id="@employee.EmployeeId">@employee.EmployeeId</a></td>
+                    <td>@employee.EmployeeName</td>
+                    <td>@employee.RoleTitle</td>
+                    <td>@Model.GetEmployeeDepartment(employee)</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <p>   Din filtrering/sökning gav inga resultat.</p>
+        }
+    }
+
+</table>

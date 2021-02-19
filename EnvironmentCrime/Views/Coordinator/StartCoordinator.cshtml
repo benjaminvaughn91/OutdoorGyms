@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "_CoordinatorLayout";
+    @model ICrimeRepository
+}
+
+<h2>Ärenden</h2>
+<p class="info">Du är inloggad som samordnare</p>
+
+<table id="managerForm">
+    <tr>
+        <td class="label">Välj status:</td>
+        <td class="label">Välj avdelning:</td>
+        <td>&nbsp;</td>
+        <td class="label">Ärendenummer:</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    
+    <tr>
+
+        <form method="post" asp-controller="Coordinator" asp-action="FilterErrands">
+            <td>
+                <select name="statusid">
+                    <option selected="selected" value="all">Välj alla</option>
+                    @{
+                        foreach (ErrandStatus errandStatus in Model.ErrandStatuses)
+                        {
+                            <option value=@errandStatus.StatusId>@errandStatus.StatusName</option>
+                        }}
+                </select>
+            </td>
+            <td>
+                <select name="departmentid">
+                    <option selected="selected" value="all">Välj alla</option>
+                    @{
+                        foreach (Department department in ViewBag.ListOfDepartments)
+                        {
+                            <option value=@department.DepartmentId>@department.DepartmentName</option>
+                        }}
+                </select>
+            </td>
+            <td><input class="button" type="submit" value="Hämta lista" /></td>
+        </form>
+        <form method="post" asp-controller="Coordinator" asp-action="SearchErrands">
+            <td><input name="casenumber" /></td>
+            <td><input class="button" type="submit" value="Sök" /></td>
+        </form>
+    </tr>
+
+</table>
+
+@await Component.InvokeAsync("ErrandList", ViewBag.ErrandList)

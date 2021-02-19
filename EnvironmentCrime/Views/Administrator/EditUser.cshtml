@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "_AdministratorLayout";
+    @model Employee
+}
+
+<section id="mainColumn">
+    <h2>Ändra detaljer för @Model.EmployeeName</h2>
+
+    <section id="leftColumn">
+        <p>
+            <span class="label">Användarnamn: </span><br />
+            @Model.EmployeeId
+        </p>
+        <p>
+            <span class="label">Lösenord: </span><br />
+            @Model.EmployeePassword
+        </p>
+    </section>
+    <section id="rightColumn">
+        <p>
+            <span class="label">Roll: </span><br />
+            @Model.RoleTitle
+        </p>
+        <p>
+            <span class="label">Avdelning: </span><br />
+            @ViewBag.DepartmentName
+        </p>
+    </section>
+
+    <p>Fyll i formuläret nedan och klicka på Spara.</p>
+
+    <h3>@ViewBag.ResultMessage</h3>
+
+    <form method="post" asp-controller="Administrator" asp-action="UpdateUser">
+        <p>
+            <input type="hidden" name="isSubmitted" value="true" />
+        </p>
+        <p>
+            <span class="label">Lösenord: </span><br />
+            <input asp-for="EmployeePassword" />
+            <span asp-validation-for="EmployeePassword"></span>
+        </p>
+        <p>
+            <span class="label">Namn: </span><br />
+            <input asp-for="EmployeeName" />
+            <span asp-validation-for="EmployeeName"></span>
+        </p>
+        <p>
+            <span class="label">Roll: </span><br />
+            <select asp-for="RoleTitle">
+                <option disabled="disabled" selected="selected">Välj roll</option>
+                <option value="Investigator">Investigator</option>
+                <option value="Manager">Manager</option>
+                <option value="Coordinator">Coordinator</option>
+                <option value="Administrator">Administrator</option>
+            </select>
+            <span asp-validation-for="RoleTitle"></span>
+        </p>
+        <p>
+            <span class="label">Avdelning: </span><br />
+            <select asp-for="DepartmentId">
+                <option disabled="disabled" selected="selected">Välj avdelning</option>
+                @{
+                    foreach (Department department in ViewBag.ListOfDepartments)
+                    {
+                        <option value=@department.DepartmentId>@department.DepartmentName</option>
+                    }}
+            </select>
+            <span asp-validation-for="DepartmentId"></span>
+        </p>
+        <p>
+            <input class="button" type="submit" value="Spara" />
+        </p>
+    </form>
+
+    <p>
+        ----------------------------------------------------------------------------------------------------------
+        <form method="post" asp-controller="Administrator" asp-action="ValidateRemove" asp-route-id="@Model.EmployeeId">
+            <input class="button" type="submit" value="Ta bort användare" />
+        </form>
+    </p>
+
+</section><!-- End Left -->
