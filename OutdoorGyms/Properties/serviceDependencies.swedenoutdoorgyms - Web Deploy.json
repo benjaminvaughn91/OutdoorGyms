@@ -11,6 +11,18 @@
       "type": "mssql.azure",
       "connectionId": "DefaultConnection",
       "secretStore": "AzureAppSettings"
+    },
+    "mssql3": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:IdentityConnection",
+      "suggestion": "true",
+      "ignored": "true"
+    },
+    "mssql4": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:DefaultConnection",
+      "suggestion": "true",
+      "ignored": "true"
     }
   }
 }
