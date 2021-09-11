@@ -1,0 +1,8 @@
+﻿@{
+    Layout = "_LoggedOutLayout";
+    @model GymStatus
+}
+
+<h2>Details for gym</h2>
+
+@await Component.InvokeAsync("GymDetails", ViewBag.ID)

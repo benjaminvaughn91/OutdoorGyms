@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "_ContributorLayout";
+    @model GymStatus
+}
+
+<h2>Details for gym</h2>
+<p class="info">You are signed in as a contributor.</p>
+
+@await Component.InvokeAsync("GymDetails", ViewBag.ID)
+
+<section id="bottomColumn">
+    <h3>Edit gym</h3>
+    <form asp-controller="Contributor" asp-action="UpdateGym" enctype="multipart/form-data" multiple method="post">
+
+        <p class="label">Add more information:</p>
+        <textarea name="information" rows="5" cols="60"></textarea>
+
+        <p class="label">Upload a picture:</p>
+        <input type="file" name="loadImage" />
+
+        <p>
+            <input class="button" type="submit" value="Save changes" />
+        </p>
+    </form>
+</section>

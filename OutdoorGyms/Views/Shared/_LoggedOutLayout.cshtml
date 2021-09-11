@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "_BasicLayout";
+}
+
+<nav>
+    <ul>
+        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+        <li><a asp-controller="Anyone" asp-action="About">About</a></li>
+        <li><a asp-controller="Anyone" asp-action="Contact">Contact</a></li>
+        <li class="right"><a class="login" asp-controller="Home" asp-action="Login">Log in</a></li>
+</ul>
+</nav><!-- End Nav -->
+
+<div id="content">
+    @RenderBody()
+
+

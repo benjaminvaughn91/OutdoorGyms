@@ -1,0 +1,44 @@
+﻿@model IGymRepository
+
+<table>
+    <tr>
+        <th>Gym ID</th>
+        <th>Location</th>
+        <th>Town</th>
+        <th>County</th>
+        @if (@ViewBag.LoggedIn)
+        {
+            <th>Status</th>
+            <th>Contributor</th>
+            <th>Date added</th>
+        }
+    </tr>
+
+    @{string action = "Gym" + @ViewBag.UserRole;}
+
+    @{
+        if (@ViewBag.HasGyms) 
+        { 
+            @foreach (Gym gym in ViewBag.GymList)
+            {
+            <tr>
+                <td class="number"><a asp-controller=@ViewBag.UserRole asp-action=@action asp-route-id="@gym.GymId">@gym.RefNumber</a></td>
+                <td class="place">@gym.Place</td>
+                <td class="town">@gym.Town</td>
+                <td class="county">@Model.GetGymCounty(gym)</td>
+                @if (@ViewBag.LoggedIn)
+                {
+                    <td class="status">@Model.GetGymStatus(gym)</td>
+                    <td class="contributor">@gym.ContributorName</td>
+                    <td class="date">@gym.DateOfContribution.ToShortDateString()</td>
+                }
+            </tr>
+            }
+        }
+        else
+        {
+            <p> Your search/filtration gave no results.</p> 
+        }
+    }
+
+</table>

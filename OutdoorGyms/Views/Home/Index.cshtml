@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "_LoggedOutLayout";
+    @model IGymRepository
+}
+
+
+<section id="mainColumn">
+    <h2>Gym database.</h2>
+    <p class="info">Welcome to the outdoor gym database.</p>
+
+    <p>Search or filter list to find a gym in your area.</p>
+
+    <table id="managerForm">
+        <tr>
+            <td class="label">Search ID:</td>
+            <td>&nbsp;</td>
+            <td class="label">Filter by county:</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <form method="post" asp-controller="Home" asp-action="SearchGyms">
+                <td><input name="casenumber" /></td>
+                <td><input class="button" type="submit" value="Search" /></td>
+            </form>
+            <form method="post" asp-controller="Home" asp-action="FilterGyms">
+                <td>
+                    <select name="countyid">
+                        <option selected="selected" value="all">Choose all</option>
+                        @{
+                            foreach (County gymCounty in Model.Countys)
+                            {
+                                <option value=@gymCounty.CountyId>@gymCounty.CountyName</option>
+                            }}
+                    </select>
+                </td>
+                <td><input class="button" type="submit" value="Filter" /></td>
+            </form>
+        </tr>
+    </table>
+
+    @await Component.InvokeAsync("GymList", ViewBag.GymList)
+
+</section><!-- End Left -->
+
+<aside id="sideColumn">
+    <img src="~/images/pic_1.jpg" height="222" alt="Gym photo 1" />
+    <img src="~/images/pic_3.jpg" height="222" alt="Gym photo 2" />
+    <img src="~/images/pic_5.jpg" height="222" alt="Gym photo 3" />
+    <img src="~/images/pic_6.jpg" height="222" alt="Gym photo 4" />
+    <img src="~/images/pic_7.jpg" height="222" alt="Gym photo 5" />
+</aside><!-- End Right -->

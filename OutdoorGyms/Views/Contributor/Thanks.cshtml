@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "_ContributorLayout";
+}
+
+<h2>Thanks for your contribution.</h2>
+<p class="info">You are signed in as a contributor.</p>
+
+<p>
+    Your contribution has been sent and will be reviewed by a moderator. <br />
+    After that you will be able to find it in the database to add pictures or more information. <br />
+    Gym ID: @ViewBag.RefNumber
+</p>
+
+<p><a class="button" asp-controller="Contributor" asp-action="StartContributor">Return to start</a></p>

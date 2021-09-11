@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "_ContributorLayout";
+    @model IGymRepository
+}
+
+<h2>Gym database</h2>
+<p class="info">You are signed in as a contributor.</p>
+
+<table id="managerForm">
+    <tr>
+        <td class="label">Choose county:</td>
+        <td class="label">Show your contributions:</td>
+        <td>&nbsp;</td>
+        <td class="label">Search by ID:</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <form method="post" asp-controller="Contributor" asp-action="FilterGyms">
+            <td>
+                <select name="countyid">
+                    <option selected="selected" value="all">Choose alla</option>
+                    @{
+                        foreach (County county in Model.Countys)
+                        {
+                            <option value=@county.CountyId>@county.CountyName</option>
+                        }}
+                </select>
+            </td>
+            <td>
+                <select name="mineid">
+                    <option selected="selected" value="all">Choose all</option>
+                    <option value="mine">My contributions</option>
+                </select>
+            </td>
+            <td><input class="button" type="submit" value="Filter" /></td>
+        </form>
+        <form method="post" asp-controller="Contributor" asp-action="SearchGyms">
+            <td><input name="casenumber" /></td>
+            <td><input class="button" type="submit" value="Search" /></td>
+        </form>
+    </tr>
+</table>
+
+@await Component.InvokeAsync("GymList", ViewBag.GymList)

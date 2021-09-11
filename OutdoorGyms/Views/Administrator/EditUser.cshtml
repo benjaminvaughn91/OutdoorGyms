@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "_AdministratorLayout";
+    @model Employee
+}
+
+<section id="mainColumn">
+    <h2>Change details for @Model.EmployeeName</h2>
+
+    <section id="leftColumn">
+        <p>
+            <span class="label">Username: </span><br />
+            @Model.EmployeeId
+        </p>
+        <p>
+            <span class="label">Password: </span><br />
+            @Model.EmployeePassword
+        </p>
+    </section>
+    <section id="rightColumn">
+        <p>
+            <span class="label">Title: </span><br />
+            @Model.RoleTitle
+        </p>
+        <p>
+            <span class="label">County: </span><br />
+            @ViewBag.CountyName
+        </p>
+    </section>
+
+    <p>Fill in the form below and click Save.</p>
+
+    <h3>@ViewBag.ResultMessage</h3>
+
+    <form method="post" asp-controller="Administrator" asp-action="UpdateUser">
+        <p>
+            <input type="hidden" name="isSubmitted" value="true" />
+        </p>
+        <p>
+            <span class="label">Password: </span><br />
+            <input asp-for="EmployeePassword" />
+            <span asp-validation-for="EmployeePassword"></span>
+        </p>
+        <p>
+            <span class="label">Name: </span><br />
+            <input asp-for="EmployeeName" />
+            <span asp-validation-for="EmployeeName"></span>
+        </p>
+        <p>
+            <span class="label">Title: </span><br />
+            <select asp-for="RoleTitle">
+                <option disabled="disabled" selected="selected">Choose title</option>
+                <option value="Contributor">Contributor</option>
+                <option value="Moderator">Moderator</option>
+                <option value="Administrator">Administrator</option>
+            </select>
+            <span asp-validation-for="RoleTitle"></span>
+        </p>
+        <p>
+            <span class="label">County: </span><br />
+            <select asp-for="CountyId">
+                <option disabled="disabled" selected="selected">Choose County</option>
+                @{
+                    foreach (County county in ViewBag.ListOfCountys)
+                    {
+                        <option value=@county.CountyId>@county.CountyName</option>
+                    }}
+            </select>
+            <span asp-validation-for="CountyId"></span>
+        </p>
+        <p>
+            <input class="button" type="submit" value="Save" />
+        </p>
+    </form>
+
+    <p>
+        ----------------------------------------------------------------------------------------------------------
+        <form method="post" asp-controller="Administrator" asp-action="ValidateRemove" asp-route-id="@Model.EmployeeId">
+            <input class="button" type="submit" value="Remove user" />
+        </form>
+    </p>
+
+</section><!-- End Left -->

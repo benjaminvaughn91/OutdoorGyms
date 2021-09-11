@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "_ModeratorLayout";
+    @model GymStatus
+}
+
+<h2>Details for gym</h2>
+<p class="info">You are signed in as a moderator.</p>
+
+@await Component.InvokeAsync("GymDetails", ViewBag.ID)
+
+<section id="bottomColumn">
+    <h3>Edit gym</h3>
+    <form asp-controller="Moderator" asp-action="UpdateGym" enctype="multipart/form-data" multiple method="post">
+        <p class="label">Edit gym information:</p>
+        <textarea name="information" rows="5" cols="60">@ViewBag.Description</textarea>
+
+        <p class="label">>Upload a picture:</p>
+        <input type="file" name="loadImage" />
+
+        <p>
+            Set status
+            <select asp-for="StatusId" asp-items="@(new SelectList(ViewBag.ListOfStatuses, "StatusId", "StatusName"))">
+                <option selected="selected" value="nothing">Choose</option>
+            </select>
+        </p>
+
+        <p><input class="button" type="submit" value="Save" /></p>
+    </form>
+</section>

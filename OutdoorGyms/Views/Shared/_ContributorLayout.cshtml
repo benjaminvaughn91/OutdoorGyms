@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "_BasicLayout";
+}
+
+<nav>
+    <ul>
+        <li><a class="reports" a asp-controller="Contributor" asp-action="StartContributor">Start(Gyms)</a></li>
+        <li><a class="reportAdd" a asp-controller="Contributor" asp-action="AddGym">Add new gym</a></li>
+        <li class="right"><a class="logout" a asp-controller="Home" asp-action="Logout">Log out</a></li>
+    </ul>
+</nav><!-- End Nav -->
+
+<div id="content">
+    @RenderBody()

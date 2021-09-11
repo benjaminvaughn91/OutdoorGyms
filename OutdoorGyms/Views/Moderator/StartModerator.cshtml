@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "_ModeratorLayout";
+    @model IGymRepository
+}
+
+<h2>Gym database</h2>
+<p class="info">You are signed in as a moderator</p>
+
+<table id="managerForm">
+    <tr>
+        <td class="label">Choose county:</td>
+        <td class="label">Choose status:</td>
+        <td>&nbsp;</td>
+        <td class="label">Search by ID:</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <form method="post" asp-controller="Moderator" asp-action="FilterGyms">
+            <td>
+                <select name="countyid">
+                    <option selected="selected" value="all">Choose alla</option>
+                    @{
+                        foreach (County county in Model.Countys)
+                        {
+                            <option value=@county.CountyId>@county.CountyName</option>
+                        }}
+                </select>
+            </td>
+            <td>
+                <select name="statusid">
+                    <option selected="selected" value="all">Choose all</option>
+                    @{
+                        foreach (GymStatus gymStatus in Model.GymStatuses)
+                        {
+                            <option value=@gymStatus.StatusId>@gymStatus.StatusName</option>
+                        }}
+                </select>
+            </td>
+            <td><input class="button" type="submit" value="Get list" /></td>
+        </form>
+        <form method="post" asp-controller="Moderator" asp-action="SearchGyms">
+            <td><input name="casenumber" /></td>
+            <td><input class="button" type="submit" value="Search" /></td>
+        </form>
+    </tr>
+</table>
+
+@await Component.InvokeAsync("GymList", ViewBag.GymList)

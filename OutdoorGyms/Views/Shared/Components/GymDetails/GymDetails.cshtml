@@ -1,0 +1,61 @@
+﻿@model Gym
+
+<h3>Gym ID: @Model.RefNumber</h3>
+<section id="leftColumn">
+
+    <h3>Gym details</h3>
+    <p>
+        <span class="label">County: </span><br />
+        @ViewBag.CountyName
+    </p>
+    <p>
+        <span class="label">Town: </span><br />
+        @Model.Town
+    </p>
+    <p>
+        <span class="label">Location: </span><br />
+        @Model.Place
+    </p>
+    <p style="white-space: pre-line">
+        <span class="label">Description:</span><br />
+        @ViewBag.Description
+    </p>
+    <p>
+        <span class="label">Pictures: </span><br />
+        @{
+            @if (@ViewBag.ShowPictures)
+            {
+                foreach (Picture picture in ViewBag.Pictures)
+                {
+                <p>
+                    <a target="_blank" href="~/uploads/pictures/@picture.PictureName">
+                        <img src="~/uploads/pictures/@picture.PictureName" alt="Upladdad bild">
+                    </a>
+                </p>
+            }
+        }
+        else
+        {
+            <span>No pictures </span>
+        }
+        }
+        </p>
+    </section>
+
+@if (@ViewBag.LoggedIn) { 
+<section id="rightColumn">
+    <h3>Contribution details</h3>
+    <p>
+        <span class="label">Date added: </span><br />
+        @Model.DateOfContribution
+    </p>
+    <p>
+        <span class="label">Contributor: </span><br />
+        @Model.ContributorName
+    </p>
+    <p>
+        <span class="label">Status:</span><br />
+        @ViewBag.StatusName
+    </p>
+</section>
+}

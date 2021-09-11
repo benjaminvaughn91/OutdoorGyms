@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "_ContributorLayout";
+}
+
+<h2>Your contribution</h2>
+<p class="info">You are signed in as a contributor.</p>
+
+<p class="label">
+    Please look check your contribution details before you confirm.<br />
+</p>
+<p><span class="label">County: </span><br />@ViewBag.County</p>
+<p><span class="label">Town: </span><br />@ViewBag.Town</p>
+<p><span class="label">Location/address: </span><br />@ViewBag.Place</p>
+<p><span class="label">Description: </span><br />@ViewBag.Description</p>
+<p>
+    <a class="button" asp-controller="Contributor" asp-action="AddGym" id="link">Go back</a> <a class="button" asp-controller="Contributor" asp-action="Thanks">Confirm</a>
+</p>

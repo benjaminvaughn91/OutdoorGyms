@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "_AdministratorLayout";
+    @model IGymRepository
+}
+
+<h2>Website accounts</h2>
+<p class="info">You are logged in as a administrator.</p>
+
+<table id="managerForm">
+    <tr>
+        <td class="label">Choose Title:</td>
+        <td class="label">Choose County:</td>
+        <td>&nbsp;</td>
+        <td class="label">ID-number:</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <form method="post" asp-controller="Administrator" asp-action="FilterEmployees">
+            <td>
+                <select name="roletitle">
+                    <option selected="selected" value="all">Choose all</option>
+                    <option value="Administrator">Administrator</option>
+                    <option value="Moderator">Moderator</option>
+                    <option value="Contributor">Contributor</option>
+                </select>
+            </td>
+            <td>
+                <select name="countyid">
+                    <option selected="selected" value="all">Choose all</option>
+                    @{
+                        foreach (County county in Model.Countys)
+                        {
+                            <option value=@county.CountyId>@county.CountyName</option>
+                        }}
+                </select>
+            </td>
+            <td><input class="button" type="submit" value="Filter" /></td>
+        </form>
+        <form method="post" asp-controller="Administrator" asp-action="SearchEmployees">
+            <td><input name="employeeid" /></td>
+            <td><input class="button" type="submit" value="Search" /></td>
+        </form>
+    </tr>
+
+</table>
+
+<table>
+    <tr>
+        <th>Id-number</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>County</th>
+    </tr>
+
+    @{
+        if (@ViewBag.HasEmployees)
+        {
+            @foreach (Employee employee in ViewBag.EmployeeList)
+            {
+                <tr>
+                    <td><a asp-controller="Administrator" asp-action="EditUser" asp-route-id="@employee.EmployeeId">@employee.EmployeeId</a></td>
+                    <td>@employee.EmployeeName</td>
+                    <td>@employee.RoleTitle</td>
+                    <td>@Model.GetEmployeeCounty(employee)</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <p> Your filtration/search gave no results.</p>
+        }
+    }
+
+</table>

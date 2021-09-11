@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "_ContributorLayout";
+    @model Gym
+}
+
+<h2>Add a new gym</h2>
+<p class="info">You are signed in as a contributor.</p>
+
+<p>Fill in the form below, entraces marked with * must be filled in.</p>
+<form method="post" asp-controller="Contributor" asp-action="Validate" enctype="multipart/form-data" multiple method="post">
+    <p>
+        <input type="hidden" name="isSubmitted" value="true" />
+    </p>
+    <p>
+        <select asp-for="CountyId" asp-items="@(new SelectList(ViewBag.ListOfCountys, "CountyId", "CountyName"))">
+            <option selected="selected" value="nothing">Choose</option>
+        </select>
+    </p>
+    <p>
+        <label class="label" asp-for="Town"></label><br />
+        <input asp-for="Town" /> *
+        <span asp-validation-for="Town"></span>
+    </p>
+    <p>
+        <label class="label" asp-for="Place"></label><br />
+        <input asp-for="Place" /> *
+        <span asp-validation-for="Place"></span>
+    </p>
+    <p>
+        <label class="label" asp-for="Description">Description/other information<br /></label><br />
+        <textarea asp-for="Description" rows="5" cols="16"></textarea>
+    </p>
+    <input class="button" type="submit" value="Submit" />
+    </p>
+</form>

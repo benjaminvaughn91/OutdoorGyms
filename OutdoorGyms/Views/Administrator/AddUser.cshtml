@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "_AdministratorLayout";
+    @model Employee
+}
+
+<section id="mainColumn">
+    <h2>Add a new account.</h2>
+
+    <p>Fill in the form below and click Save.</p>
+
+    <h3>@ViewBag.FailMessage</h3>
+
+    <form method="post" asp-controller="Administrator" asp-action="SaveUser">
+        <p>
+            <input type="hidden" name="isSubmitted" value="true" />
+        </p>
+        <p>
+            <span class="label">Username: </span><br />
+            <input asp-for="EmployeeId" />
+            <span asp-validation-for="EmployeeId"></span>
+        </p>
+        <p>
+            <span class="label">Password: </span><br />
+            <input asp-for="EmployeePassword" />
+            <span asp-validation-for="EmployeePassword"></span>
+        </p>
+        <p>
+            <span class="label">Name: </span><br />
+            <input asp-for="EmployeeName" />
+            <span asp-validation-for="EmployeeName"></span>
+        </p>
+        <p>
+            <span class="label">Title: </span><br />
+            <select asp-for="RoleTitle">
+                <option disabled="disabled" selected="selected">Choose title</option>
+                <option value="Contributor">Contributor</option>
+                <option value="Moderator">Moderator</option>
+                <option value="Administrator">Administrator</option>
+            </select>
+            <span asp-validation-for="RoleTitle"></span>
+        </p>
+        <p>
+            <span class="label">County: </span><br />
+            <select asp-for="CountyId">
+                <option disabled="disabled" selected="selected">Choose county</option>
+                @{
+                    foreach (County county in ViewBag.ListOfCountys)
+                    {
+                        <option value=@county.CountyId>@county.CountyName</option>
+                    }}
+            </select>
+            <span asp-validation-for="CountyId"></span>
+        </p>
+        <p>
+            <input class="button" type="submit" value="Save" />
+        </p>
+    </form>
+</section><!-- End Left -->
