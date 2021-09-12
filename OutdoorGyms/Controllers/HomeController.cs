@@ -35,6 +35,12 @@ namespace OutdoorGyms.Controllers
                     gyms.Add(gym);
             ViewBag.GymList = gyms;
 
+            List<County> counties = new List<County>();
+            foreach (County county in repository.Countys)
+                if (county.CountyId != "D00")
+                    counties.Add(county);
+            ViewBag.CountyList = counties;
+
             return View(repository);
         }
 

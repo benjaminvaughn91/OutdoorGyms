@@ -27,7 +27,7 @@
                     <select name="countyid">
                         <option selected="selected" value="all">Choose all</option>
                         @{
-                            foreach (County gymCounty in Model.Countys)
+                            foreach (County gymCounty in ViewBag.CountyList)
                             {
                                 <option value=@gymCounty.CountyId>@gymCounty.CountyName</option>
                             }}
